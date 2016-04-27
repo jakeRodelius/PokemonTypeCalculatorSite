@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Team Type Calculator</title>
-	<script src="pokemonClass.js"></script>
-</head>
-<body>
-	<p>This is my pokemon type calculator, right now I have one pokemon slot working. Put in 2 types from dropdowns and press submit to see the weaknesses and resistances.</p>
-
-
-	<h3>Pokemon 1</h3>
+<td>
 	<select id="pokemon1type1">
 		<option value="0">None</option>
 		<option value="1">Normal</option>
@@ -52,8 +41,4 @@
 		<option value="17">Steel</option>
 		<option value="18">Fairy</option>
 	</select>
-	<p id="weakness1">Weaknesses: </p>
-	<p id="resistance1">Resistances: </p>
-	<button onclick="calculateTeam()">Submit</button>
-</body>
-</html>
+</td>
