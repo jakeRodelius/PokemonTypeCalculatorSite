@@ -17,6 +17,16 @@ td{
 	height: 50px;
 }
 
+select{
+	/*border: none;*/
+	border: 4pt double darkgray;
+	font-size: 11pt;
+	background: white; /* Old browsers */
+	background: -moz-linear-gradient(top, white 0%,white 50%, #ddd 51%, #ddd 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, white 0%,white 50%,#ddd 51%,#ddd 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, white 0%,white 50%,#ddd 51%,#ddd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
 table tr:nth-child(even) td{
 	background-color: #51abe6;
 }
@@ -24,8 +34,13 @@ table tr:nth-child(odd) td{
 	background-color: #3b97d4;
 }
 
-tr #grad{
+#grad{
 	width: 200px;
+	background: #3b97d4; 
+	background: -webkit-linear-gradient(left, #3b97d4 , #60c2e9);
+	background: -o-linear-gradient(right, #3b97d4, #60c2e9);
+	background: -moz-linear-gradient(right, #3b97d4, #60c2e9);
+	background: linear-gradient(to right, #3b97d4 , #60c2e9);
 }
 tr:nth-child(even) #grad{
 	background: #51abe6; 
@@ -41,30 +56,53 @@ tr:nth-child(odd) #grad{
 	background: -moz-linear-gradient(right, #3b97d4, #60c2e9);
 	background: linear-gradient(to right, #3b97d4 , #60c2e9);
 }
+tr:last-child td{
+	height: 75px;
+}
 
 button{
 	margin: 5px;
-	border: 4pt double lightgray;
+	border: 4pt double darkgray;
 	border-radius: 7px;
 	font-family: "Arial Narrow", Arial, sans-serif;
-	font-weight: bolder;
+	/*font-weight: bolder;*/
 	font-size: 0.8em;
-	background-color: white;
+	
 	padding: 7px;
 	width: 150px;
 	text-align: left;
+	background: white; /* Old browsers */
+	background: -moz-linear-gradient(top, white 0%,white 50%, #ddd 51%, #ddd 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, white 0%,white 50%,#ddd 51%,#ddd 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, white 0%,white 50%,#ddd 51%,#ddd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
+
 p{
 	margin: 5px;
 }
 
-#additionalOptions{
+#bottomBar{
+	height: ;
+	padding: 30px;
+	background-color: #f7553e;
+}
+#bottomBar>*{
+	display: inline-block;
+	background-color: #df432a;
+	padding: 10px;
 }
 
-a#footer{
-	text-decoration: none;
-	color: white;
+#unresisted{
+	
+}
+
+#footer{
 	position: absolute;
 	bottom: 5px;
 	right: 5px;
+}
+
+#footer a{
+	text-decoration: none;
+	color: white;
 }

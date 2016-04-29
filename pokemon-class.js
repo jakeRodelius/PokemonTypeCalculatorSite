@@ -1,4 +1,4 @@
-var typeNames = ['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'];
+var typeNames = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
 var chart = [ 
     [001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001], //None
     [001, 001, 001, 001, 001, 001, 002, 001, 001, 001, 001, 001, 001, 000, 001, 001, 001, 001], //Normal
@@ -48,7 +48,7 @@ function Pokemon(arg){
                 index++;
             }
         }
-        // document.getElementById("weakness" + number).innerHTML = "Weaknesses: " + result.ToString();
+        // document.getElementById("weakness" + number).innerHTML = "Weaknesses: " + result.formatOut();
         return result;
 	}
 
@@ -61,7 +61,7 @@ function Pokemon(arg){
                 index++;
             }
         }
-        // document.getElementById("resistance" + number).innerHTML = "Resistances: " + result.ToString();
+        // document.getElementById("resistance" + number).innerHTML = "Resistances: " + result.formatOut();
 		return result;
 	}
 }
@@ -70,7 +70,7 @@ function Team(){
     var team = [new Pokemon(1), new Pokemon(2), new Pokemon(3), new Pokemon(4), new Pokemon(5), new Pokemon(6)];
     var allWeaknesses = new List();
     var allResistances = new List();
-
+    var resisted = [];
     this.calcWeakness = function(){
         for(var i=0; i<6; i++){
             for(var j=0; j<18; j++){
@@ -99,19 +99,21 @@ function Team(){
             team[i].updateTypes();
         }
         this.calcWeakness();
-        this.calcResist();
+        resisted = this.calcResist().Spit();
         for(var i = 0; i<allWeaknesses.Spit().length; i++){
-            if(allResistances.Spit().Contains(allWeaknesses.Spit()[i])){
+            if(allResistances.Spit().contains(allWeaknesses.Spit()[i])){
                 var thisWeak = allWeaknesses.Spit()[i];
                 allResistances.Remove(thisWeak);
                 allWeaknesses.Remove(thisWeak);
+                i--;
             }
         }
         for(var i = 0; i<allResistances.Spit().length; i++){
-            if(allWeaknesses.Spit().Contains(allResistances.Spit()[i])){
+            if(allWeaknesses.Spit().contains(allResistances.Spit()[i])){
                 var thisRes = allResistances.Spit()[i];
-                allResistances.Remove(thisWeak);
-                allWeaknesses.Remove(thisWeak);
+                allResistances.Remove(thisRes);
+                allWeaknesses.Remove(thisRes);
+                i--;
             }
         }
     }
@@ -126,18 +128,43 @@ function Team(){
     this.allResistances = function(){
         return allResistances;
     }
+    this.resisted = function(){
+        return resisted;
+    }
 }
+
+//Buttons
+//*********************************************************************************************
 
 function calculateTeam(){
 	team = new Team();
     var rows = document.getElementById("table").children[0].children;
     team.update();
 	for(var i=1; i<=6; i++){
-		rows[i].children[1].innerHTML = team.Spit()[i-1].calcWeakness().ToString();
-		rows[i].children[2].innerHTML = team.Spit()[i-1].calcResist().ToString();
+		rows[i].children[1].innerHTML = team.Spit()[i-1].calcWeakness().formatOut();
+		rows[i].children[2].innerHTML = team.Spit()[i-1].calcResist().formatOut();
 	}
-	document.getElementById("weaknesses").innerHTML = team.allWeaknesses().Spit().ToString();
-    document.getElementById("resistances").innerHTML = team.allResistances().Spit().ToString();
+	document.getElementById("weaknesses").innerHTML = team.allWeaknesses().Spit().formatOut();
+    document.getElementById("resistances").innerHTML = team.allResistances().Spit().formatOut();
+
+    if(textOnly){
+        var outstring = "";
+        for(var i=0; i<18; i++){
+            if(!team.resisted().contains(i)){
+                 outstring += typeNames[i].capitalize() + ", ";
+            }
+        }
+        document.getElementById("unresisted").innerHTML = "Un-Resisted: "+ outstring.slice(0, outstring.length-2);
+    }
+    else{
+        document.getElementById("unresisted").innerHTML =  "Un-Resisted: " + makeImages();
+        var unResists = document.getElementById("unresisted").children;
+        for(var i=0; i<18; i++){
+            if(team.resisted().contains(i)){
+                unResists[if].style.opacity = 0.2;
+            }
+        }
+    }
 }
 
 function reset(){
@@ -156,6 +183,7 @@ function toggleText(){
     calculateTeam();
 }
 
+//Useful structures and properties
 //*********************************************************************************************
 function List(){
     var contents = [];
@@ -207,32 +235,22 @@ function makeOptions(){ //I used this to make the first dropdown list
 	console.log(list);
 }
 
-
-function appropriateString(anArray){
-    var result = "";
-    for(var q = 0; q<18; q++){
-        if(anArray.Contains(q)){
-            if(textOnly){
-                if (result!="")
-                    result += ", "
-                if(anArray.Count(q)>1)
-                    result += typeNames[q] + "*" + anArray.Count(q);
-                else   
-                    result += typeNames[q];
-            }
-            else{
-                if(anArray.Count(q)>1)
-                    result += "<img src=\"" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">" + "x" + anArray.Count(q) + " ";
-                else   
-                    result += "<img src=\"" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">";
-            }
-        }
+function makeImages(){
+    var typeImages = "";
+    for(var i = 0; i<typeNames.length; i++){
+        typeImages += "<img src=\"images/" + typeNames[i] + ".jpg\" alt=\"" + typeNames[i].capitalize() + "\">\n";
     }
-    return result;
+    return typeImages;
 }
 
-Object.defineProperty(Array.prototype, "Contains", {
-    value: function Contains(item) {
+Object.defineProperty(String.prototype, "capitalize", {
+    value: function capitalize() {
+        return this[0].toUpperCase() + this.slice(1);
+    }
+})
+
+Object.defineProperty(Array.prototype, "contains", {
+    value: function contains(item) {
     	var counter = 0;
         while(this[counter]!=null){
         	if(this[counter] == item)
@@ -243,8 +261,8 @@ Object.defineProperty(Array.prototype, "Contains", {
     }
 })
 
-Object.defineProperty(Array.prototype, "Count", {
-    value: function Count(item) {
+Object.defineProperty(Array.prototype, "count", {
+    value: function count(item) {
         var counter = 0;
         var result = 0;
         while(this[counter]!=null){
@@ -256,28 +274,28 @@ Object.defineProperty(Array.prototype, "Count", {
     }
 })
 
-Object.defineProperty(Array.prototype, "ToString", {
-    value: function ToString() {
-    var result = "";
-    for(var q = 0; q<18; q++){
-        if(this.Contains(q)){
-            if(textOnly){
-                if (result!="")
-                    result += ", "
-                if(this.Count(q)>1)
-                    result += typeNames[q] + "*" + this.Count(q);
-                else   
-                    result += typeNames[q];
-            }
-            else{
-                if(this.Count(q)>1)
-                    result += "<img src=\"images/" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">" + "x" + this.Count(q) + " ";
-                else   
-                    result += "<img src=\"images/" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">";
+Object.defineProperty(Array.prototype, "formatOut", {
+    value: function formatOut() {
+        var result = "";
+        for(var q = 0; q<18; q++){
+            if(this.contains(q)){
+                if(textOnly){
+                    if (result!="")
+                        result += ", "
+                    if(this.count(q)>1)
+                        result += typeNames[q].capitalize() + "*" + this.count(q);
+                    else   
+                        result += typeNames[q].capitalize();
+                }
+                else{
+                    if(this.count(q)>1)
+                        result += "<img src=\"images/" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q].capitalize() + " \">" + "x" + this.count(q) + " ";
+                    else   
+                        result += "<img src=\"images/" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q].capitalize() + " \">";
+                }
             }
         }
-    }
-    return result;
+        return result;
     	// var counter = 0;
     	// var result = "";
      //    while(this[counter]!=null){

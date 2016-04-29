@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Team Type Calculator - About</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		body{
+			font-family: Arial;
+			color: black;
+		}
+		li{
+			margin: 10px 0;
+		}
+		section{
+			margin: 100px 0;
+		}
+	</style>
+</head>
+<body>
+	<h1>About</h1>
+	<p>This is a calculator for the Pokemon video games, more specifically Generation 6+ Pokemon games. The user inputs the types of their pokemon and the calculator will present them with a useful table of information about weaknesses and resistances, for each pokemon and for the "team" overall.</p>
+
+	<section>
+		<h3>Explain Pokemon</h3>
+		<p>In Pokemon you use animal like creatures called <b>Pokemon</b> in <b>Battles</b> and use <b>Attacks</b> to hurt the opposing Pokemon until it faints. As the player you may have up to 6 Pokemon with you at any time, this inventory of Pokemon is called a <b>Team</b>. To win a battle you make all the opposing team's Pokemon faint.</p>
+	</section>
+
+	<section>
+		<h3>What is a type?</h3>
+		<p>Types in Pokemon are usually elemental themed, like water, fire, electric, etc.<br><b>Pokemon have types</b>, and their <b>attacks have types</b>, neither determines the other. Types come with <b>weaknesses</b> and <b>resistances</b>, for example <span style="color: red">a fire type Pokemon</span> is weak to <span style="color: blue">water type attacks</span> but resists <span style="color: green">grass type attacks</span>. It's like rock, paper, scissors, lizard, spock (if youre familiar). There are 18 types in the game all with their own weaknesses and strengths. Another layer of complexity is added on top of all of this because <b>Pokemon can have 2 types at once</b>. The second type may double a weakness or negate it completely. A water and fire type for example is no longer weak to water because water resists water.<br><br><a href="http://www.serebii.net/xy/typechart.shtml">This is a link to a chart that shows how types match up.</a></p>
+	</section>
+
+	<section>
+		<h3>What does this calculator do?</h3>
+		<p>In the game the weaknesses and strengths of each Pokemon is never explicitly shown, this calculator shows that. The main function of this calculator however is to summarize the weaknesses and strengths of a team so the user knows what types are a threat to them.</p>
+	</section>
+	<!-- <p>The player puts in the types of the Pokemon on their team and this calculator shows them clearly what types it resists and what types it is weak against. Inside the game the weaknesses and resistances are never explicitly shown. The real purpose of this calculator however is to combine this information of weaknesses and resistances to show how the entire team adds up. Strategically speaking I wouldn't want a majority of my team to be weak to fire, this calculator would show that. The weakness summary shows the types that threaten your team as a whole, for exmaple a team of fire types would have nothing to do against water type attacks. The resistances list is less useful but it shows where you have some wiggle room if you plan on adding a Pokemon that may add some weaknesses.</p> -->
+	<section>
+		<h3>What I recommend you do to test it</h3>
+		<p>Follow these steps to see what this calculator does.</p>
+		<ul>
+			<li>Put "water" into the first dropdown and then press calculate.<br>Water is weak to electric and grass, the entire team (your single water type) is weak to water and grass.</li>
+			<li>Put "grass" into the second row's first slot and press calculate. <br>Grass resists electric and grass, so the weaknesses in the summary were removed. Grass however is weak to fire, ice, poison, flying, and bug. Water resists fire and ice, leaving poison, flying, and bug as your teams overall weakness (you have nothing to resist those types).</li>
+			<li>Put "rock" into the third row's first dropdown and press calculate.<br>Rock resists poison and flying, but not bug. Bug remains a weakness and now rock has introduced weaknesses to fighting and grass.</li>
+			<li>Put "dark" into the fourth row's first dropdown and press calculate. <br>Your team was previously weak to fighting and bug, and dark is weak to fighting and bug. The overview row now has x2's next to those types, meaning your team has double weakness to those types overall.</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>Whats with the color scheme?</h3>
+		<p>It immitates the game, here are screenshots.</p>
+		<img src="reference-a.jpg" alt="reference1">
+		<img src="reference-b.jpg" alt="reference2">
+	</section>
