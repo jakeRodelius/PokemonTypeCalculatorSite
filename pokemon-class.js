@@ -161,7 +161,7 @@ function calculateTeam(){
         var unResists = document.getElementById("unresisted").children;
         for(var i=0; i<18; i++){
             if(team.resisted().contains(i)){
-                unResists[if].style.opacity = 0.2;
+                unResists[i].style.opacity = 0.2;
             }
         }
     }

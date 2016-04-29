@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 body{
+	margin: 0;
 	background-color: #60c2e9;
 	color: white;
 	font-family: "Arial Narrow", Arial, sans-serif;
@@ -9,6 +10,7 @@ body{
 
 table{
 	border-spacing: 0 3px;
+	margin: 8px;
 }
 
 td{
@@ -82,9 +84,13 @@ p{
 }
 
 #bottomBar{
-	height: ;
 	padding: 30px;
+/*	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;*/
 	background-color: #f7553e;
+	border-top: 4pt solid #df432a;
 }
 #bottomBar>*{
 	display: inline-block;
