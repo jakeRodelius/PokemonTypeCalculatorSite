@@ -3,15 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Team Type Calculator</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="pokemon-class.js"></script>
-	<style>
-		tr {height: 50px; width: 500px;}
-		td {Background-Color: lightgray; width: 400px;}
-	</style>
 </head>
 
 <body>
-	<table id="table"><tr><td>Pokemon</td><td>Weaknesses</td><td>Resistances</td></tr><tr><td>
+	<table id="table"><tr><td>POKEMON</td><td>WEAKNESS</td><td>RESISTANCE</td><td id="grad"></td></tr><tr><td>
 		<select id="pokemon1type1">
 			<option value="0">None</option>
 			<option value="1">Normal</option>
@@ -54,7 +51,7 @@
 			<option value="17">Steel</option>
 			<option value="18">Fairy</option>
 		</select>
-	</td><td></td><td></td></tr><tr><td>
+	</td><td></td><td></td><td id="grad"></td></tr><tr><td>
 		<select id="pokemon2type1">
 			<option value="0">None</option>
 			<option value="1">Normal</option>
@@ -97,7 +94,7 @@
 			<option value="17">Steel</option>
 			<option value="18">Fairy</option>
 		</select>
-	</td><td></td><td></td></tr><tr><td>
+	</td><td></td><td></td><td id="grad"></td></tr><tr><td>
 		<select id="pokemon3type1">
 			<option value="0">None</option>
 			<option value="1">Normal</option>
@@ -140,8 +137,8 @@
 			<option value="17">Steel</option>
 			<option value="18">Fairy</option>
 		</select>
-	</td><td></td><td></td></tr><tr><td>
-				<select id="pokemon4type1">
+	</td><td></td><td></td><td id="grad"></td></tr><tr><td>
+		<select id="pokemon4type1">
 			<option value="0">None</option>
 			<option value="1">Normal</option>
 			<option value="2">Fire</option>
@@ -183,8 +180,8 @@
 			<option value="17">Steel</option>
 			<option value="18">Fairy</option>
 		</select>
-	</td><td></td><td></td></tr><tr><td>
-				<select id="pokemon5type1">
+	</td><td></td><td></td><td id="grad"></td></tr><tr><td>
+		<select id="pokemon5type1">
 			<option value="0">None</option>
 			<option value="1">Normal</option>
 			<option value="2">Fire</option>
@@ -226,7 +223,7 @@
 			<option value="17">Steel</option>
 			<option value="18">Fairy</option>
 		</select>
-	</td><td></td><td></td></tr><tr><td>
+	</td><td></td><td></td><td id="grad"></td></tr><tr><td>
 		<select id="pokemon6type1">
 			<option value="0">None</option>
 			<option value="1">Normal</option>
@@ -269,10 +266,17 @@
 			<option value="17">Steel</option>
 			<option value="18">Fairy</option>
 		</select>
-	</td><td></td><td></td></tr> 
+	</td><td></td><td></td><td id="grad"></td></tr>
+	<tr>
+		<td>Team Overview</td>
+		<td id="weaknesses"></td>
+		<td id="resistances"></td>
+		<td id="grad"></td>
+	</tr>
 	</table>
-	<p id="weaknesses">Weaknesses: </p>
-	<p id="resistances">Resistances: </p>
-	<button onclick="calculateTeam()">Calculate</button>
+	<button onclick="calculateTeam()">CALCULATE</button>
+	<button onclick="reset()">RESET</button>
+	<div id="additionalOptions"><p>Text Only <input type="checkbox" name="text-only" onclick="toggleText()"></p></div>
+	<a id="footer" href="https://twitter.com/JakeRodelius" target="_blank">@jakerodelius</a>
 </body>
 </html>

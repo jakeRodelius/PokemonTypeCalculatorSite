@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+body{
+	background-color: #60c2e9;
+	color: white;
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 1.4em;
+}
+
+table{
+	border-spacing: 0 3px;
+}
+
+td{
+	padding: 5px;
+	width: 400px;
+	height: 50px;
+}
+
+table tr:nth-child(even) td{
+	background-color: #51abe6;
+}
+table tr:nth-child(odd) td{
+	background-color: #3b97d4;
+}
+
+tr #grad{
+	width: 200px;
+}
+tr:nth-child(even) #grad{
+	background: #51abe6; 
+	background: -webkit-linear-gradient(left, #51abe6 , #60c2e9);
+	background: -o-linear-gradient(right, #51abe6, #60c2e9);
+	background: -moz-linear-gradient(right, #51abe6, #60c2e9);
+	background: linear-gradient(to right, #51abe6 , #60c2e9);
+}
+tr:nth-child(odd) #grad{
+	background: #3b97d4; 
+	background: -webkit-linear-gradient(left, #3b97d4 , #60c2e9);
+	background: -o-linear-gradient(right, #3b97d4, #60c2e9);
+	background: -moz-linear-gradient(right, #3b97d4, #60c2e9);
+	background: linear-gradient(to right, #3b97d4 , #60c2e9);
+}
+
+button{
+	margin: 5px;
+	border: 4pt double lightgray;
+	border-radius: 7px;
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-weight: bolder;
+	font-size: 0.8em;
+	background-color: white;
+	padding: 7px;
+	width: 150px;
+	text-align: left;
+}
+p{
+	margin: 5px;
+}
+
+#additionalOptions{
+}
+
+a#footer{
+	text-decoration: none;
+	color: white;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}

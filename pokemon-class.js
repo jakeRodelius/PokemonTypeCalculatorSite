@@ -1,4 +1,4 @@
-var typeNames = ['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy']
+var typeNames = ['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'];
 var chart = [ 
     [001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001, 001], //None
     [001, 001, 001, 001, 001, 001, 002, 001, 001, 001, 001, 001, 001, 000, 001, 001, 001, 001], //Normal
@@ -20,6 +20,7 @@ var chart = [
     [0.5, 002, 001, 001, 0.5, 0.5, 002, 000, 002, 0.5, 0.5, 0.5, 0.5, 001, 0.5, 001, 0.5, 0.5], //Steel
     [001, 001, 001, 001, 001, 001, 0.5, 002, 001, 001, 001, 0.5, 001, 001, 000, 0.5, 002, 001] //Fairy
 ];
+var textOnly = false;
 
 function Pokemon(arg){
 	var number = arg;
@@ -63,109 +64,171 @@ function Pokemon(arg){
         // document.getElementById("resistance" + number).innerHTML = "Resistances: " + result.ToString();
 		return result;
 	}
-
-    this.test = function(){
-        return number;
-    }
 }
 
-function calcTeamWeakness(){
-    var result = "";
-    var allWeaknesses = [];
-	for(var i=0; i<6; i++){
-        for(var j=0; j<18; j++){
-            if(team[i].calcWeakness()[j]!=null)
-               allWeaknesses[allWeaknesses.length] = team[i].calcWeakness()[j];
-            else
-                ;
-        }
-	}
-    for(var q = 0; q<18; q++){
-        if(allWeaknesses.Contains(q)){
-            if (result!="")
-                result += ", "
-            if(allWeaknesses.Count(q)>1)
-                result += typeNames[q] + "*" + allWeaknesses.Count(q);
-            else   
-                result += typeNames[q];
-        }
-    }
-    return result;
-}
+function Team(){
+    var team = [new Pokemon(1), new Pokemon(2), new Pokemon(3), new Pokemon(4), new Pokemon(5), new Pokemon(6)];
+    var allWeaknesses = new List();
+    var allResistances = new List();
 
-function calcTeamResistance(){
-    var result = "";
-    var allResistances = [];
-    for(var i=0; i<6; i++){
-        for(var j=0; j<18; j++){
-            if(team[i].calcResist()[j]!=null)
-               allResistances[allResistances.length] = team[i].calcResist()[j];
-            else
-                ;
+    this.calcWeakness = function(){
+        for(var i=0; i<6; i++){
+            for(var j=0; j<18; j++){
+                if(team[i].calcWeakness()[j]!=null)
+                   allWeaknesses.Add(team[i].calcWeakness()[j]);
+                else
+                    ;
+            }
+        }
+        return allWeaknesses;
+    }
+    this.calcResist = function(){
+        for(var i=0; i<6; i++){
+            for(var j=0; j<18; j++){
+                if(team[i].calcResist()[j]!=null)
+                   allResistances.Add(team[i].calcResist()[j]);
+                else
+                    ;
+            }
+        }
+        return allResistances;
+    }
+
+    this.update = function(){
+        for(var i=0; i<6; i++){
+            team[i].updateTypes();
+        }
+        this.calcWeakness();
+        this.calcResist();
+        for(var i = 0; i<allWeaknesses.Spit().length; i++){
+            if(allResistances.Spit().Contains(allWeaknesses.Spit()[i])){
+                var thisWeak = allWeaknesses.Spit()[i];
+                allResistances.Remove(thisWeak);
+                allWeaknesses.Remove(thisWeak);
+            }
+        }
+        for(var i = 0; i<allResistances.Spit().length; i++){
+            if(allWeaknesses.Spit().Contains(allResistances.Spit()[i])){
+                var thisRes = allResistances.Spit()[i];
+                allResistances.Remove(thisWeak);
+                allWeaknesses.Remove(thisWeak);
+            }
         }
     }
-    for(var q = 0; q<18; q++){
-        if(allResistances.Contains(q)){
-            if (result!="")
-                result += ", "
-            if(allResistances.Count(q)>1)
-                result += typeNames[q] + "*" + allResistances.Count(q);
-            else   
-                result += typeNames[q];
-        }
+
+    this.Spit = function(){
+        return team;
     }
-    return result;
+
+    this.allWeaknesses = function(){
+        return allWeaknesses;
+    }
+    this.allResistances = function(){
+        return allResistances;
+    }
 }
 
 function calculateTeam(){
-	team = [new Pokemon(1), new Pokemon(2), new Pokemon(3), new Pokemon(4), new Pokemon(5), new Pokemon(6)];
-	for(var i=0; i<6; i++){
-		team[i].updateTypes();
-	}
-
-	var ugh = document.getElementById("table").children;
-    var rows = ugh[0].children;
-	// console.log(rows[2].tagName);
- //    console.log(rows[2].children[0].tagName);
-
+	team = new Team();
+    var rows = document.getElementById("table").children[0].children;
+    team.update();
 	for(var i=1; i<=6; i++){
-		rows[i].children[1].innerHTML = team[i-1].calcWeakness().ToString();
-		rows[i].children[2].innerHTML = team[i-1].calcResist().ToString();
+		rows[i].children[1].innerHTML = team.Spit()[i-1].calcWeakness().ToString();
+		rows[i].children[2].innerHTML = team.Spit()[i-1].calcResist().ToString();
 	}
-	// myPokemon = new Pokemon(1); //this format makes it global automatically, javascript is weird
-	// myPokemon.updateTypes();
-	// myPokemon.calcWeakness();
-	// myPokemon.calcResist();
-
-	document.getElementById("weaknesses").innerHTML = "Weaknesses: " + calcTeamWeakness();
-    document.getElementById("resistances").innerHTML = "Resistances: " + calcTeamResistance();
-
-
-
-	// var testArray = [1, 3, 5];
-	// console.log("this is testArray: " + testArray.ToString())
-	// console.log("does it contain 2? " + testArray.Contains(2));
-	// console.log("does it contain 1? " + testArray.Contains(1));
-	// console.log("does it contain 3? " + testArray.Contains(3));
-
-	// makeOptions();
+	document.getElementById("weaknesses").innerHTML = team.allWeaknesses().Spit().ToString();
+    document.getElementById("resistances").innerHTML = team.allResistances().Spit().ToString();
 }
 
-// function arrayToString(incoming, length){
-// 	var output = "";
-// 	for(i=0; i<length; i++){
-// 		output+=incoming[i];
-// 		if(i<length-1)
-// 			output+=", ";
-// 	}
-// 	return output;
-// }
+function reset(){
+    var selectBoxes = document.getElementsByTagName("select");
+    for (var i = selectBoxes.length - 1; i >= 0; i--) {
+        selectBoxes[i].selectedIndex = 0;
+    }
+    calculateTeam();
+}
 
-function makeOptions(){
+function toggleText(){
+    if(textOnly)
+        textOnly = false;
+    else
+        textOnly = true;
+    calculateTeam();
+}
+
+//*********************************************************************************************
+function List(){
+    var contents = [];
+    this.Add = function(item){
+        contents[contents.length] = item;
+    }
+    this.Remove = function(item){
+        var result;
+        // if(typeof item === 'number'){
+        //     result = contents[item];
+        //     for(var i = item; i<contents.length; i++){
+        //         contents[i] = contents [i+1];
+        //     }
+        // }
+        // if(typeof item === 'string'){
+
+        //Looks for the item
+        for(var i = 0; i<contents.length; i++){
+            if(contents[i]==item){
+                result = i;
+                //Shift all the values to fill the gap of the removed
+                for(var j = i; j<contents.length; j++){
+                    contents[j] = contents [j+1];
+                }
+                
+                //Retains the length
+                var temp = [];
+                for(var q = 0; q<contents.length; q++){
+                    if(typeof contents[q]!== 'undefined'){
+                        temp[q] = contents[q];
+                    }
+                }
+                contents = temp;
+
+                break;
+            }
+        }
+        return result;
+    }
+    this.Spit = function(){
+        return contents;
+    }
+}
+
+function makeOptions(){ //I used this to make the first dropdown list
 	list = "<option value=\"0\">None</option>\n";
 	for(i = 0; i<18; i++)
 		list+="<option value=\""+ (i+1) + "\">"+ typeNames[i] +"</option>\n";
 	console.log(list);
+}
+
+
+function appropriateString(anArray){
+    var result = "";
+    for(var q = 0; q<18; q++){
+        if(anArray.Contains(q)){
+            if(textOnly){
+                if (result!="")
+                    result += ", "
+                if(anArray.Count(q)>1)
+                    result += typeNames[q] + "*" + anArray.Count(q);
+                else   
+                    result += typeNames[q];
+            }
+            else{
+                if(anArray.Count(q)>1)
+                    result += "<img src=\"" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">" + "x" + anArray.Count(q) + " ";
+                else   
+                    result += "<img src=\"" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">";
+            }
+        }
+    }
+    return result;
 }
 
 Object.defineProperty(Array.prototype, "Contains", {
@@ -195,14 +258,34 @@ Object.defineProperty(Array.prototype, "Count", {
 
 Object.defineProperty(Array.prototype, "ToString", {
     value: function ToString() {
-    	var counter = 0;
-    	var result = "";
-        while(this[counter]!=null){
-        	result+= typeNames[this[counter]];
-        	counter++;
-        	if(this[counter]!=null)
-        		result+=", ";
+    var result = "";
+    for(var q = 0; q<18; q++){
+        if(this.Contains(q)){
+            if(textOnly){
+                if (result!="")
+                    result += ", "
+                if(this.Count(q)>1)
+                    result += typeNames[q] + "*" + this.Count(q);
+                else   
+                    result += typeNames[q];
+            }
+            else{
+                if(this.Count(q)>1)
+                    result += "<img src=\"images/" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">" + "x" + this.Count(q) + " ";
+                else   
+                    result += "<img src=\"images/" + typeNames[q] + ".jpg\" alt=\"" + typeNames[q] + " \">";
+            }
         }
-        return result;
+    }
+    return result;
+    	// var counter = 0;
+    	// var result = "";
+     //    while(this[counter]!=null){
+     //    	result+= "<img src=\"" + typeNames[this[counter]] + ".jpg\" alt=\"" + typeNames[this[counter]] + " \">";
+     //    	counter++;
+     //    	// if(this[counter]!=null)
+     //    	// 	result+=", ";
+     //    }
+     //    return result;
     }
 })
