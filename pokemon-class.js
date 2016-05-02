@@ -118,6 +118,50 @@ function Team(){
         }
     }
 
+    this.recommend = function(){
+        var recs = [];
+        for(var i = 1; i<=typeNames.length; i++){ //consider type i
+            var rating = 0;
+            for(var j = 0; j<allWeaknesses.Spit().length; j++){
+                if(chart[i][allWeaknesses.Spit()[j]]<1){ //if type i resists weakness j
+                    rating++;
+                }
+            }
+            for(var k = 0; k<typeNames.length; k++){ //loop through the type chart for i
+                if(chart[i][k]>1){ //Find a weakness
+                    if(!allResistances.Spit().contains(k)) //If the weakness isn't resisted on the team
+                        rating--;
+                }
+            }
+            recs[i-1] = rating;
+        }
+        console.log(recs);
+
+        var result = [];
+        for(var z = 0; z<10; z++){ //runs through 10 times
+            var best, highest; //Sets up best and highest to use in a minute
+            for(var i = 0; i<recs.length; i++){ //runs through recs to find a non-null value
+                if(recs[i]!=null){
+                    highest = recs[i]; //use that non-null as the high value to compare with below
+                    best = i;
+                    break; //once you found one, stop looping
+                }
+            }
+            for(var j = 0; j<recs.length; j++){
+                if(recs[j]!=null){ //ignore the null ones
+                    if(recs[j]>highest){ //if its higher than the recorded highest
+                        highest = recs[j]; //its the new highest
+                        best = j; //and the best
+                    }
+                }
+            }
+            result[result.length] = best; //the best index is used in reult
+            recs[best] = null; //and that previous best value gets null'd
+        }
+
+        return result;
+    }
+
     this.Spit = function(){
         return team;
     }
@@ -165,6 +209,7 @@ function calculateTeam(){
             }
         }
     }
+    document.getElementById("recommended").innerHTML = "Recommended Additions: " + team.recommend().convertToImages();
 }
 
 function reset(){
@@ -305,5 +350,22 @@ Object.defineProperty(Array.prototype, "formatOut", {
      //    	// 	result+=", ";
      //    }
      //    return result;
+    }
+})
+
+Object.defineProperty(Array.prototype, "convertToImages", {
+    value: function convertToImages() {
+        var result = "";
+        for (var i = 0; i < this.length; i++) {
+            if(textOnly){
+                if (result!="")
+                    result += ", " 
+                result += typeNames[this[i]].capitalize();
+            }
+            else{
+                result += "<img src=\"images/" + typeNames[this[i]] + ".jpg\" alt=\"" + typeNames[this[i]].capitalize() + " \">";
+            }
+        };
+        return result;
     }
 })
