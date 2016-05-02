@@ -138,7 +138,7 @@ function Team(){
         console.log(recs);
 
         var result = [];
-        for(var z = 0; z<10; z++){ //runs through 10 times
+        for(var z = 0; z<typeNames.length; z++){ //runs through all types
             var best, highest; //Sets up best and highest to use in a minute
             for(var i = 0; i<recs.length; i++){ //runs through recs to find a non-null value
                 if(recs[i]!=null){
@@ -156,10 +156,30 @@ function Team(){
                 }
             }
             result[result.length] = best; //the best index is used in reult
+            if(recs[best]<-2) break;
             recs[best] = null; //and that previous best value gets null'd
         }
 
         return result;
+    }
+
+    this.rate = function(){
+        switch(allWeaknesses.Spit().length){
+            case 0:
+                return "Outstanding";
+                break;
+            case 1:
+                return "Relatively Superior";
+                break;
+            case 2:
+                return "Above Average";
+                break;
+            case 3:
+                return "Decent";
+                break;
+            default:
+                return "Below Average";
+        }
     }
 
     this.Spit = function(){
@@ -210,6 +230,7 @@ function calculateTeam(){
         }
     }
     document.getElementById("recommended").innerHTML = "Recommended Additions: " + team.recommend().convertToImages();
+    document.getElementById("rating").innerHTML = "Rating: " + team.rate();
 }
 
 function reset(){
@@ -237,13 +258,6 @@ function List(){
     }
     this.Remove = function(item){
         var result;
-        // if(typeof item === 'number'){
-        //     result = contents[item];
-        //     for(var i = item; i<contents.length; i++){
-        //         contents[i] = contents [i+1];
-        //     }
-        // }
-        // if(typeof item === 'string'){
 
         //Looks for the item
         for(var i = 0; i<contents.length; i++){
@@ -341,15 +355,6 @@ Object.defineProperty(Array.prototype, "formatOut", {
             }
         }
         return result;
-    	// var counter = 0;
-    	// var result = "";
-     //    while(this[counter]!=null){
-     //    	result+= "<img src=\"" + typeNames[this[counter]] + ".jpg\" alt=\"" + typeNames[this[counter]] + " \">";
-     //    	counter++;
-     //    	// if(this[counter]!=null)
-     //    	// 	result+=", ";
-     //    }
-     //    return result;
     }
 })
 

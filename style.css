@@ -6,6 +6,8 @@ body{
 	color: white;
 	font-family: "Arial Narrow", Arial, sans-serif;
 	font-size: 1.4em;
+	display: flex;
+	flex-flow: column nowrap;
 }
 
 table{
@@ -79,16 +81,29 @@ button{
 	background: linear-gradient(to bottom, white 0%,white 50%,#ddd 51%,#ddd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
+button:active{
+	background: lightgray; /* Old browsers */
+	background: -moz-linear-gradient(top, lightgray 0%,lightgray 50%, #bbb 51%, #bbb 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, lightgray 0%,lightgray 50%,#bbb 51%,#bbb 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, lightgray 0%,lightgray 50%,#bbb 51%,#bbb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+button:focus{
+	outline: none;
+}
+
 p{
 	margin: 5px;
+	display: inline;
 }
 
 #bottomBar{
 	padding: 30px;
-/*	position: absolute;
+	overflow: visible;
+	/*position: absolute;
 	bottom: 0;
 	right: 0;
-	left: 0;*/
+	left: 0;
+	height: 200px;*/
 	background-color: #f7553e;
 	border-top: 4pt solid #df432a;
 }
@@ -96,10 +111,6 @@ p{
 	display: inline-block;
 	background-color: #df432a;
 	padding: 10px;
-}
-
-#unresisted{
-	
 }
 
 #footer{
