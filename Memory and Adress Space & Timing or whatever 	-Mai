@@ -1,0 +1,74 @@
+Memory and Adress Space & Timing or whatever 	-Main memory chapter
+question 3-14 is cool but we didnt talk about it
+Cache is big, what it does, its effect, how its implemented, examples of caches, sequence of events that occur hen a cache reads or writes, not the same as main memory, between memory and CPU
+
+cpu accesses memory through read or write, word at a time (or other stuff). There will be an adress that desribes that and that is put on the bus to make stuff happen. Instead it goes to th cache. Brings in entire cache line at a time. 4-17 is too bgi for the exam.
+
+mapping schemes for cache is a good thing to think about ""
+
+dirct
+fully associative
+set associative (?)
+
+
+direct
+[ tag           ][ line #       ][ Word field ]
+you have 16 bytes in cache lines
+4 bits for th adress
+
+fully associative
+[all the block number                         ]
+
+set associative
+[tag                             ][set  ][word]
+
+ROM - Read Only Memory
+not the same corcuitry as a hard coded number, its like a custom built computer for a single purpose
+
+decode adress lines to main memory
+
+Error correction stuff
+-Put don operator when your doing the exclusive or (or any operation) let him know what youre doing
+what is a parity bit
+what is a data bit
+
+be brief with the answer, dont pour out stuff because it looks like you dont know
+
+I/O
+chap 7
+Address decoding is integral
+same as decode for main memory
+interrupt driven IO
+direct memory access
+interrupt controller - cascading chips?
+
+expect to program some assembly language
+-could be writing
+-could be reading
+-dont need to memorize instruction set
+-know how to use instructions
+
+there is also a lot of pre-midterm stuff
+
+-convert beteen bases
+-how fractions work in bases
+-binary and floating point
+-boolean functions
+-opratores in boolean algebra system
+-functionally complete?
+-truth tables
+	build one
+	use one
+-gates and symbols
+build somthing with gates
+build every gate using nand / nor
+quine mccluskey
+sum of product and product of sums
+de-morgans law
+carnaugh maps (carnell map? cornell map?)
+
+sequential logic anf flip flops
+state machines (ugh)
+binary division and multiplication
+
+handwritten 8.5 by 11 front and back

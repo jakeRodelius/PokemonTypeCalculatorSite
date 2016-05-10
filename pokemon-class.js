@@ -41,11 +41,9 @@ function Pokemon(arg){
 
 	this.calcWeakness = function(){
         var result = [];
-        var index = 0;
         for(i = 0; i<18; i++){
             if(chart[type1][i] * chart[type2][i] >= 2){
-                result[index] = i;
-                index++;
+                result[result.length] = i;
             }
         }
         // document.getElementById("weakness" + number).innerHTML = "Weaknesses: " + result.formatOut();
@@ -54,11 +52,9 @@ function Pokemon(arg){
 
 	this.calcResist = function(){
 		var result = [];
-		var index = 0;
         for(i = 0; i<18; i++){
             if(chart[type1][i] * chart[type2][i] <= 0.5){
-                result[index] = i;
-                index++;
+                result[result.length] = i;
             }
         }
         // document.getElementById("resistance" + number).innerHTML = "Resistances: " + result.formatOut();
@@ -72,34 +68,28 @@ function Team(){
     var allResistances = new List();
     var resisted = [];
     this.calcWeakness = function(){
-        for(var i=0; i<6; i++){
-            for(var j=0; j<18; j++){
-                if(team[i].calcWeakness()[j]!=null)
-                   allWeaknesses.Add(team[i].calcWeakness()[j]);
-                else
-                    ;
+        for(var i=0; i<team.length; i++){
+            for(var j=0; j<team[i].calcWeakness().length; j++){
+                 allWeaknesses.Add(team[i].calcWeakness()[j]);
             }
         }
         return allWeaknesses;
     }
     this.calcResist = function(){
-        for(var i=0; i<6; i++){
-            for(var j=0; j<18; j++){
-                if(team[i].calcResist()[j]!=null)
-                   allResistances.Add(team[i].calcResist()[j]);
-                else
-                    ;
+        for(var i=0; i<team.length; i++){
+            for(var j=0; j<team[i].calcResist().length; j++){
+                allResistances.Add(team[i].calcResist()[j]);
             }
         }
         return allResistances;
     }
 
     this.update = function(){
-        for(var i=0; i<6; i++){
+        for(var i=0; i<team.length; i++){
             team[i].updateTypes();
         }
         this.calcWeakness();
-        resisted = this.calcResist().Spit();
+        resisted.copyFrom(this.calcResist().Spit());
         for(var i = 0; i<allWeaknesses.Spit().length; i++){
             if(allResistances.Spit().contains(allWeaknesses.Spit()[i])){
                 var thisWeak = allWeaknesses.Spit()[i];
@@ -135,11 +125,11 @@ function Team(){
             }
             recs[i-1] = rating;
         }
-        console.log(recs);
+        // console.log(recs);
 
         var result = [];
         for(var z = 0; z<typeNames.length; z++){ //runs through all types
-            var best, highest; //Sets up best and highest to use in a minute
+            var best, highest;
             for(var i = 0; i<recs.length; i++){ //runs through recs to find a non-null value
                 if(recs[i]!=null){
                     highest = recs[i]; //use that non-null as the high value to compare with below
@@ -242,10 +232,16 @@ function reset(){
 }
 
 function toggleText(){
-    if(textOnly)
+    if(textOnly){
         textOnly = false;
-    else
+        document.getElementById("text-toggle").className = "";
+        // document.getElementById("checkbox").src = "images/unchecked.png";
+    }
+    else{
         textOnly = true;
+        document.getElementById("text-toggle").className = "pushed";
+        // document.getElementById("checkbox").src = "images/checked.png";
+    }
     calculateTeam();
 }
 
@@ -330,6 +326,14 @@ Object.defineProperty(Array.prototype, "count", {
             counter++;
         }
         return result;
+    }
+})
+
+Object.defineProperty(Array.prototype, "copyFrom", {
+    value: function copyFrom(item) {
+        for(var i = 0; i<item.length; i++){
+            this[i] = item[i];
+        }
     }
 })
 
